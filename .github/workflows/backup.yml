@@ -5,7 +5,7 @@ on:
     branches:
       - main
   schedule:
-    -   cron: "45 10 * * *"
+    -   cron: "45 15 * * *"
 
 jobs:
   backup:
