@@ -41,6 +41,7 @@ jobs:
           cd backup-repo
           
           ls
+          rm -rf *.zip
           # Find the zip file using the wildcard
           zip_file="$(ls *.zip | head -n1)"
           # Unzip the file
