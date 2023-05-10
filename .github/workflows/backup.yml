@@ -38,15 +38,15 @@ jobs:
           REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
         run: |
           cp -a workspace/. backup-repo/
-          cd backup-repo
+          cd backup-repo          
+          git config --local user.email "${REPO_EMAIL}"
+          git config --local user.name "${REPO_USERNAME}"
           
           sudo apt install git-lfs
           git lfs install
           git lfs track "*.zip"
           git add .gitattributes 
           
-          git config --local user.email "${REPO_EMAIL}"
-          git config --local user.name "${REPO_USERNAME}"
           git add .
           if [ -z "$(git status --porcelain)" ]; then
             exit 0
