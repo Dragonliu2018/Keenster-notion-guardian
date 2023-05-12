@@ -37,11 +37,15 @@ jobs:
           REPO_EMAIL: ${{ secrets.REPO_EMAIL }}
           REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
         run: |  
+          pwd
+          ls
+          ls workspace/
+          ls backup-repo/
+          # delete zip file, because the limit of git lfs is 1G.
+          rm -rf backup-repo/*.zip
+          
           cp -a workspace/. backup-repo/
           cd backup-repo
-          
-          # delete zip file, because the limit of git lfs is 1G.
-          rm -rf *.zip
           
           git config --local user.email "${REPO_EMAIL}"
           git config --local user.name "${REPO_USERNAME}"
