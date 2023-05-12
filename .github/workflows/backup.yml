@@ -40,6 +40,9 @@ jobs:
           cp -a workspace/. backup-repo/
           cd backup-repo
           
+          # delete zip file, because the limit of git lfs is 1G.
+          rm -rf "*.zip"
+          
           git config --local user.email "${REPO_EMAIL}"
           git config --local user.name "${REPO_USERNAME}"
           
