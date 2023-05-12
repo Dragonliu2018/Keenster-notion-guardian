@@ -36,36 +36,18 @@ jobs:
         env:
           REPO_EMAIL: ${{ secrets.REPO_EMAIL }}
           REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
-        run: |
-        
-          ls backup-repo/
-          rm -rf backup-repo/*.zip
-          
+        run: |  
           cp -a workspace/. backup-repo/
           cd backup-repo
-          
-          ls
-          # Find the zip file using the wildcard
-          zip_file="$(ls *.zip | head -n1)"
-          # Unzip the file
-          unzip "$zip_file"
-          # Get the top-level folder
-          folder=$(unzip -Z1 "$zip_file" | awk -F/ '{print $1}' | sort | uniq)
-          # Move the contents of the first-level folder to the current directory
-          rsync "${folder%/}"/* .
-          # Remove the first-level folder
-          rm -r "${folder%/}"
-          # Delete the zip file
-          rm "$zip_file"
           
           git config --local user.email "${REPO_EMAIL}"
           git config --local user.name "${REPO_USERNAME}"
           
           # solve large file
-          # sudo apt install git-lfs
-          # git lfs install
-          # git lfs track "*.zip"
-          # git add .gitattributes 
+          sudo apt install git-lfs
+          git lfs install
+          git lfs track "*.zip"
+          git add .gitattributes 
           
           git add .
           if [ -z "$(git status --porcelain)" ]; then
