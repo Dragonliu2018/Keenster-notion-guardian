@@ -40,10 +40,12 @@ jobs:
           # Overwrite zip files, because the limit of git lfs is 1G.
           cd workspace
           count=1
+          
           for file in *.zip; do
             mv "$file" "Export-$count.zip"
             count=$((count+1)
           done
+          
           cd ..
           
           cp -a workspace/. backup-repo/
