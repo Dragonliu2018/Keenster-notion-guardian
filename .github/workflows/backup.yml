@@ -37,12 +37,14 @@ jobs:
           REPO_EMAIL: ${{ secrets.REPO_EMAIL }}
           REPO_USERNAME: ${{ secrets.REPO_USERNAME }}
         run: |  
-          pwd
-          ls
-          ls workspace/
-          ls backup-repo/
-          # delete zip file, because the limit of git lfs is 1G.
-          rm -rf backup-repo/*.zip
+          # Overwrite zip files, because the limit of git lfs is 1G.
+          cd workspace
+          count=1
+          for file in *.zip; do
+            mv "$file" "Export-$count.zip"
+            count=$((count+1)
+          done
+          cd ..
           
           cp -a workspace/. backup-repo/
           cd backup-repo
